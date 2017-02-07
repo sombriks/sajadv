@@ -1,0 +1,11 @@
+br/com/softplan/sajadv/service/SajAdvService.class
+br/com/softplan/sajadv/resource/FiltroProcesso.class
+br/com/softplan/sajadv/service/MigrateService.class
+br/com/softplan/sajadv/resource/SajAdvResource.class
+br/com/softplan/sajadv/resource/Page.class
+br/com/softplan/sajadv/model/Situacao.class
+br/com/softplan/sajadv/resource/FiltroResponsavel.class
+br/com/softplan/sajadv/model/Responsavel.class
+br/com/softplan/sajadv/model/Processo.class
+br/com/softplan/sajadv/filter/CORSFilter.class
+br/com/softplan/sajadv/SajAdvApplication.class

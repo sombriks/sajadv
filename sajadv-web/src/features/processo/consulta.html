@@ -1,0 +1,89 @@
+<!-- processo/consulta.html -->
+<form name="dataform" ng-submit="ctl.doquery()" layout="column">
+  <div layout="row" layout-align="end center">
+    <md-button type="submit" class="md-raised md-primary">Consultar</md-button>
+  </div>
+  <md-subheader>Filtros</md-subheader>
+  <div layout="row" layout-align="center center" layout-wrap>
+    <md-input-container flex-xs="100" flex-sm="35" flex="25">
+      <label>Número do processo unificado</label>
+      <input ng-model="ctl.filtro.numeroProcessoUnificado" />
+    </md-input-container>
+    <md-input-container flex-xs="50" flex-sm="30" flex="15">
+      <label>Data distribuição - Início</label>
+      <md-datepicker ng-model="ctl.filtro.inicioDataDistribuicao"></md-datepicker>
+    </md-input-container>
+    <md-input-container flex-xs="50" flex-sm="30" flex="15">
+      <label>Fim</label>
+      <md-datepicker ng-model="ctl.filtro.fimDataDistribuicao"></md-datepicker>
+    </md-input-container>
+    <md-input-container style="height:62px" flex-xs="50" flex-sm="40" flex="30">
+      <label>Situação</label>
+      <md-select ng-model="ctl.filtro.idSituacao">
+        <md-option ng-value="0"></md-option>
+        <md-option ng-repeat="sit in ctl.situacoes.resultSituacao" ng-value="sit.idSituacao">
+          {{sit.nome}}
+        </md-option>
+      </md-select>
+    </md-input-container>
+    <md-checkbox style="margin-left:2em;" ng-model="ctl.filtro.segredoJustica" flex-xs="50" flex-sm="30" flex="20">
+      Segredo de justiça
+    </md-checkbox>
+    <md-input-container flex-xs="100" flex-sm="40" flex="30">
+      <label>Pasta física do cliente</label>
+      <input ng-model="ctl.filtro.pastaFisicaCliente" />
+    </md-input-container>
+    <md-input-container flex-xs="100" flex-sm="40" flex="30">
+      <label>Responsável</label>
+      <input ng-model="ctl.filtro.nomeResponsavel" />
+    </md-input-container>
+  </div>
+  <div layout="column">
+    <!-- https://github.com/daniel-nagy/md-data-table#usage -->
+    <md-table-container>
+      <table md-table md-progress="promise">
+        <thead md-head>
+          <tr md-row>
+            <th md-column><span>Número processo unificado</span></th>
+            <th md-column><span>Data Distribuição</span></th>
+            <th md-column>Segredo de Justiça?</th>
+            <th md-column>Pasta física cliente</th>
+            <th md-column>Descrição</th>
+            <th md-column>Situação</th>
+            <th md-column>Responsáveis</th>
+            <th md-column>Ações</th>
+          </tr>
+        </thead>
+        <tbody md-body>
+          <tr md-row ng-repeat="processo in ctl.dados.resultProcesso">
+            <td md-cell>{{processo.numeroProcessoUnificado}}</td>
+            <td md-cell>{{processo.dataDistribuicao | date: "dd/MM/yyyy"}}</td>
+            <td md-cell>{{processo.segredoJustica ? "Sim" : "Não" }}</td>
+            <td md-cell>{{processo.pastaFisicaCliente}}</td>
+            <td md-cell>{{processo.descricao}}</td>
+            <td md-cell>{{processo.situacao.nome}}</td>
+            <td md-cell>
+              <span ng-repeat="res in processo.responsaveis">{{res.nome}} - </span>
+            </td>
+            <td md-cell>
+              <div layout="row">
+                <md-button 
+                  ng-href="#/processo/cadastro/{{processo.numeroProcessoUnificado}}"
+                  class="md-icon-button" aria-label="editar processo">
+                  <md-icon md-svg-icon="pencil"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button" aria-label="excluir processo">
+                  <md-icon md-svg-icon="trash-can"></md-icon>
+                </md-button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+    <md-table-pagination 
+      md-limit="ctl.filtro.limit" md-limit-options="[5, 10, 15, 30, 60, 100]" 
+      md-page="ctl.filtro.page" md-total="{{ctl.dados.countprocessos}}" 
+      md-page-select></md-table-pagination>
+  </div>
+</form>

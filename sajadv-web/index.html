@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <title>SAJ ADV</title>
+  <meta charset="utf-8" />
+</head>
+
+<body>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button class="md-icon-button" aria-label="Consultar Processos" ng-href="#/processo/consulta">
+        <md-icon md-menu-align-target md-svg-icon="book-multiple"></md-icon>
+      </md-button>
+      <md-button class="md-icon-button" aria-label="Cadastrar Processo" ng-href="#/processo/cadastro/novo">
+        <md-icon md-menu-align-target md-svg-icon="book-plus"></md-icon>
+      </md-button>
+      <md-button class="md-icon-button" aria-label="Consultar Responsável" ng-href="#/responsavel/consulta">
+        <md-icon md-menu-align-target md-svg-icon="account-search"></md-icon>
+      </md-button>
+      <md-button class="md-icon-button" aria-label="Cadastrar Responsável" ng-href="#/responsavel/cadastro/novo">
+        <md-icon md-menu-align-target md-svg-icon="account-edit"></md-icon>
+      </md-button>
+      <!-- o título será recuperado do escopo raíz -->
+      <h2>{{titulosecao}}</h2>
+    </div>
+  </md-toolbar>
+  <div ng-view>
+    <!-- aqui vai o conteúdo dinâmico -->
+  </div>
+  <script type="text/javascript" src="build.js"></script>
+</body>
+
+</html>

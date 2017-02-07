@@ -1,0 +1,95 @@
+<!-- processo/cadastro.html -->
+<form name="dataform" ng-submit="ctl.dosave()" layout="column">
+  <div layout="row" layout-align="end center">
+    <md-button type="submit" class="md-raised md-primary">Salvar</md-button>
+  </div>
+  <md-subheader>Dados do Processo</md-subheader>
+  <div layout="row" layout-align="center center" layout-wrap> 
+    <md-input-container flex-xs="100" flex-sm="30" flex="20">
+      <label>Número do processo unificado</label>
+      <input ng-model="ctl.processo.numeroProcessoUnificado" />
+    </md-input-container>
+    <md-input-container flex-xs="50" flex-sm="30" flex="15">
+      <label>Início</label>
+      <md-datepicker ng-model="ctl.processo.dataDistribuicao"></md-datepicker>
+    </md-input-container>
+    <md-input-container style="height:62px" flex-xs="50" flex-sm="40" flex="30">
+      <label>Situação</label>
+      <md-select ng-model="ctl.processo.situacao" ng-model-options="{trackBy: '$value.idSituacao'}">
+        <md-option ng-repeat="sit in ctl.situacoes.resultSituacao" ng-value="sit">
+          {{sit.nome}}
+        </md-option>
+      </md-select>
+    </md-input-container>
+    <md-input-container flex-xs="100" flex-sm="40" flex="25">
+      <label>Pasta física do cliente</label>
+      <input ng-model="ctl.processo.pastaFisicaCliente" />
+    </md-input-container>
+    <md-checkbox style="margin-left:2em;" ng-model="ctl.processo.segredoJustica" flex-xs="50" flex-sm="30" flex="20">
+      Segredo de justiça
+    </md-checkbox>
+  </div>
+  <div layout="row">
+    <div layout="column" flex="30">
+      <md-subheader>Responsáveis</md-subheader>
+      <md-list layout-margin>
+        <md-list-item>
+          <div layout="row" flex ng-hide="ctl.processo.responsaveis.length >= 3">
+            <md-autocomplete flex="80"
+                             md-selected-item="ctl.selectedItem"
+                             md-search-text="ctl.searchText"
+                             md-no-cache="true"
+                             md-item-text="item.nome" 
+                             md-floating-label="Informe o responsável"
+                             md-items="item in ctl.buscaresponsaveis(ctl.searchText)"
+                             md-input-minlength="2">
+              <md-item-template>
+                <span md-highlight-text="ctl.searchText">{{item.nome}}</span>
+              </md-item-template>
+            </md-autocomplete>
+            <div layout="row" flex="20">
+              <md-button 
+                ng-click="ctl.adicionaResponsavel()"
+                class="md-icon-button" aria-label="remover responsável">
+                <md-icon md-svg-icon="plus"></md-icon>
+              </md-button>
+            </div>
+          </div>
+        </md-list-item>
+        <md-list-item ng-repeat="res in ctl.processo.responsaveis">
+          <div layout="row" flex>
+            <div layout="row" flex="80">
+              {{res.nome}}
+            </div>
+            <div layout="row" flex="20">
+              <md-button 
+                ng-click="ctl.removeResponsavel(res)"
+                class="md-icon-button" aria-label="remover responsável">
+                <md-icon md-svg-icon="trash-can"></md-icon>
+              </md-button>
+            </div>
+          </div>
+        </md-list-item>
+      </md-list>
+    </div>
+    <div layout="column" flex="60">
+      <md-input-container>
+        <label>Descrição</label>
+        <textarea ng-model="ctl.processo.descricao" md-maxlength="1000"></textarea>
+      </md-input-container>
+    </div>
+  </div>
+  <md-subheader>Processo Vinculado</md-subheader>
+  <md-whiteframe layout="row" layout-margin ng-show="ctl.processo.processoPai" class="md-whiteframe-1dp">
+    <p>
+      Número processo unificado: {{ctl.processo.processoPai.numeroProcessoUnificado}} -
+      Data distribuição: {{ctl.processo.processoPai.dataDistribuicao| date: "dd/MM/yyyy"}} - 
+      Situação: {{ctl.processo.processoPai.situacao.nome}} - 
+      {{ctl.processo.processoPai.segredoJustica ? "(Segredo de Justiça)" : ""}}
+    </p>
+  </md-whiteframe>
+  <md-subheader>Processos Vinculados (Filhos)</md-subheader>
+  <div layout="row">
+
+  </div>
+</form>

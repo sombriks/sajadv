@@ -1,0 +1,17 @@
+/* 
+ * As importações CSS não se beneficiam do caminho de busca do browserify. 
+ * Outras tecnologias de bundling, como o webpack, unificam o caminho de busca, 
+ * ao custo de serem um pouco mais lentas.
+ * 
+ * Criando um ponto de entrada para o CSS ajudamos o transform browserify-css a
+ * coletar e empacotar todo o css do aplicativo.
+ */
+
+@import url("../node_modules/angular-material/angular-material.css");
+
+@import url("../node_modules/angular-material-data-table/dist/md-data-table.css");
+
+body, html {
+  margin: 0px;
+  font-size: 0.9em;
+}

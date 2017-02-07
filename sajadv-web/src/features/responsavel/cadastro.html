@@ -1,0 +1,53 @@
+<!-- responsavel/cadastro.html -->
+<form name="dataform" ng-submit="ctl.dosave()" layout="column">
+  <div layout="row" layout-align="end center">
+    <md-button type="submit" class="md-raised md-primary">Salvar</md-button>
+  </div>
+  <md-subheader>Dados do Responsável</md-subheader>
+  <div layout="row" layout-align="center center" layout-wrap>
+    <md-input-container flex-xs="100" flex="40">
+      <label>Nome</label>
+      <input ng-model="ctl.responsavel.nome" />
+    </md-input-container>
+    <md-input-container flex-xs="100" flex="40">
+      <label>CPF</label>
+      <input ng-model="ctl.responsavel.cpf" />
+    </md-input-container>
+  </div>
+  <md-subheader>Processos que é Responsável</md-subheader>
+  <div layout="column" ng-show="ctl.cpf != 'novo'">
+    <!-- https://github.com/daniel-nagy/md-data-table#usage -->
+    <md-table-container>
+      <table md-table md-progress="promise">
+        <thead md-head>
+          <tr md-row>
+            <th md-column><span>Número processo unificado</span></th>
+            <th md-column><span>Data Distribuição</span></th>
+            <th md-column>Segredo de Justiça?</th>
+            <th md-column>Pasta física cliente</th>
+            <th md-column>Descrição</th>
+            <th md-column>Situação</th>
+            <th md-column>Responsáveis</th>
+          </tr>
+        </thead>
+        <tbody md-body>
+          <tr md-row ng-repeat="processo in ctl.dados.resultProcesso">
+            <td md-cell>{{processo.numeroProcessoUnificado}}</td>
+            <td md-cell>{{processo.dataDistribuicao | date: "dd/MM/yyyy"}}</td>
+            <td md-cell>{{processo.segredoJustica ? "Sim" : "Não" }}</td>
+            <td md-cell>{{processo.pastaFisicaCliente}}</td>
+            <td md-cell>{{processo.descricao}}</td>
+            <td md-cell>{{processo.situacao.nome}}</td>
+            <td md-cell>
+              <span ng-repeat="res in processo.responsaveis">{{res.nome}} - </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+    <md-table-pagination 
+      md-limit="ctl.filtro.limit" md-limit-options="[5, 10, 15]" 
+      md-page="ctl.filtro.page" md-total="{{ctl.dados.countprocessos}}" 
+      md-on-paginate="ctl.buscaprocessos" md-page-select></md-table-pagination>
+  </div>
+</form>

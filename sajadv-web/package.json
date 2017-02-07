@@ -1,0 +1,44 @@
+{
+  "name": "sajadv-web",
+  "version": "1.0.0",
+  "description": "aplicativo de gestão de processos",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --timeout=10000",
+    "testnb": "cross-env SERVICOADDR=http://localhost:8080/sajadv-core/resources mocha --timeout=10000",
+    "build": "browserify src/main.js -o build.js",
+    "buildnb": "cross-env SERVICOADDR=http://localhost:8080/sajadv-core/resources browserify src/main.js -o build.js",
+    "dev": "budo src/main.js:build.js --live --open",
+    "devnb": "cross-env SERVICOADDR=http://localhost:8080/sajadv-core/resources budo src/main.js:build.js --live --open"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "brfs": "^1.4.3",
+    "budo": "^9.4.5",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "axios": "^0.15.3",
+    "envify": "^4.0.0",
+    "cross-env": "^3.1.4",
+    "browserify": "^14.0.0",
+    "browserify-css": "^0.9.2"
+  },
+  "dependencies": {
+    "moment": "^2.17.1",
+    "angular": "~1.5.11",
+    "angular-aria": "~1.5.11",
+    "angular-route": "~1.5.11",
+    "angular-animate": "~1.5.11",
+    "angular-material": "~1.1.1",
+    "angular-material-data-table": "^0.10.10"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-css",
+      "envify",
+      "brfs"
+    ]
+  }
+}
